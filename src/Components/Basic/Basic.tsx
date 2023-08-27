@@ -1,13 +1,17 @@
-import { useState } from 'react';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { ChangeEvent, useState } from 'react';
 import { Title } from '../Title/Title';
 import './Basic.css';
 
 export const Basic = () => {
   const row = 9;
-  const column = 9;
+  const column = 4;
   const [showUptick, setshowUptick] = useState(false);
   const [showDowntick, setshowDowntick] = useState(false);
-  const [columnNum, setcolumnNum] = useState(0);
+  const [columnNum, setcolumnNum] = useState(100);
+  const [columnValue, setcolumnValue] = useState('');
+  const [tableCellNum, setTableCellNum] = useState(100);
+
   const columnHandler = (columnNumber: number) => {
     if (!showUptick && !showDowntick) {
       setshowUptick((prev: boolean) => !prev);
@@ -23,6 +27,12 @@ export const Basic = () => {
       setshowDowntick((prev: boolean) => !prev);
     }
     setcolumnNum(columnNumber);
+  };
+  const tableCellChange = (_e: ChangeEvent<HTMLInputElement>, _index: number, childIndex: number) => {
+    console.log('cell chnage', _e.target.value);
+    setcolumnValue((prev) => (prev = _e.target.value));
+    setcolumnNum(_index);
+    setTableCellNum(childIndex);
   };
   const columnStr = Array(column)
     .fill('')
@@ -61,7 +71,11 @@ export const Basic = () => {
             .fill('')
             .map((__, childIndex) => (
               <th key={childIndex} id={`column-${childIndex}`}>
-                column : {childIndex}: row: {index}
+                <input
+                  type='text'
+                  value={columnValue === '' && columnNum !== index && tableCellNum !== childIndex ? `column ${childIndex}: row: ${index}` : `${columnValue}`}
+                  onChange={(e) => tableCellChange(e, index, childIndex)}
+                />
               </th>
             ))}
         </tr>
