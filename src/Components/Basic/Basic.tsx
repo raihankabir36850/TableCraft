@@ -10,7 +10,9 @@ export const Basic = () => {
   const [showDowntick, setshowDowntick] = useState(false);
   const [columnNum, setcolumnNum] = useState(100);
   const [columnValue, setcolumnValue] = useState('');
-  const [tableCellNum, setTableCellNum] = useState(100);
+  const [address, setAdress] = useState('');
+  // const [tableCellColumnNum, setTableCellColumnNum] = useState(100);
+  // const [tableCellRowNum, setTableCellRowNum] = useState(100);
 
   const columnHandler = (columnNumber: number) => {
     if (!showUptick && !showDowntick) {
@@ -29,10 +31,9 @@ export const Basic = () => {
     setcolumnNum(columnNumber);
   };
   const tableCellChange = (_e: ChangeEvent<HTMLInputElement>, _index: number, childIndex: number) => {
-    console.log('cell chnage', _e.target.value);
+    console.log('cell chnage', _index, childIndex);
     setcolumnValue((prev) => (prev = _e.target.value));
-    setcolumnNum(_index);
-    setTableCellNum(childIndex);
+    setAdress(`${_index}X${childIndex}`);
   };
   const columnStr = Array(column)
     .fill('')
@@ -72,8 +73,9 @@ export const Basic = () => {
             .map((__, childIndex) => (
               <th key={childIndex} id={`column-${childIndex}`}>
                 <input
+                  datatype={`${index}X${childIndex}`}
                   type='text'
-                  value={columnValue === '' && columnNum !== index && tableCellNum !== childIndex ? `column ${childIndex}: row: ${index}` : `${columnValue}`}
+                  value={address !== `${index}X${childIndex}` ? `column ${childIndex}: row: ${index}` : `${columnValue}`}
                   onChange={(e) => tableCellChange(e, index, childIndex)}
                 />
               </th>
