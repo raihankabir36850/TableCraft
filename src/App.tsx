@@ -4,7 +4,7 @@ import { ClassComponent } from './Components/ClassComponent/ClassComponent';
 function App() {
   return (
     <>
-      <h1>hello data table</h1>
+      <h1>Data Table</h1>
       <Basic />
       <ClassComponent />
     </>

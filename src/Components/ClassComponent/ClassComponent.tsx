@@ -5,11 +5,13 @@ import { Title } from '../Title/Title';
 export const ClassComponent = () => {
   const row = 9;
   const column = 4;
+  let generalArray, tablecells;
   const [showUptick, setshowUptick] = useState(false);
   const [showDowntick, setshowDowntick] = useState(false);
   const [columnNum, setcolumnNum] = useState(100);
   const [columnValue, setcolumnValue] = useState('');
   const [address, setAdress] = useState('');
+  const [primaryArray, setPrimaryArray] = useState([]);
 
   const columnHandler = (columnNumber: number) => {
     setcolumnNum((prev: number) => {
@@ -69,28 +71,33 @@ export const ClassComponent = () => {
       </th>
     ));
 
-  const tablecells = Array(row)
-    .fill('')
-    .map((_, index) => {
+  if (!primaryArray.length) {
+    generalArray = Array(row)
+      .fill('')
+      .map((x, index) => {
+        return Array(column)
+          .fill('')
+          .map((_x, ChildIndex) => `column ${ChildIndex}: row: ${index}`);
+      });
+
+    localStorage['datas'] = JSON.stringify(generalArray);
+
+    tablecells = generalArray.map((_, index) => {
       return (
         <tr key={index} id={`row-${index}`}>
-          {Array(column)
-            .fill('')
-            .map((__, childIndex) => (
+          {_.map((__, childIndex) => {
+            return (
               <th key={childIndex} id={`column-${childIndex}`}>
-                <input
-                  datatype={`${index}X${childIndex}`}
-                  type='text'
-                  value={address !== `${index}X${childIndex}` ? `column ${childIndex}: row: ${index}` : `${columnValue}`}
-                  onChange={(e) => tableCellChange(e, index, childIndex)}
-                />
+                <input value={__} type='text' onChange={(e) => tableCellChange(e, index, childIndex)} />
               </th>
-            ))}
+            );
+          })}
         </tr>
       );
     });
 
-  console.log(tablecells, 'tablecells');
+    console.log(generalArray, 'generalArray');
+  }
 
   return (
     <div>
@@ -102,7 +109,7 @@ export const ClassComponent = () => {
         <tbody>
           {!showUptick && !showDowntick && tablecells}
           {showUptick && !showDowntick && tablecells}
-          {!showUptick && showDowntick && tablecells.reverse()}
+          {!showUptick && showDowntick && tablecells && tablecells.reverse()}
         </tbody>
       </table>
     </div>
