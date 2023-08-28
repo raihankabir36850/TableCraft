@@ -38,9 +38,28 @@ export const ClassComponent = () => {
     });
   };
   const tableCellChange = (_e: ChangeEvent<HTMLInputElement>, _index: number, childIndex: number) => {
-    console.log('cell chnage', _index, childIndex);
-    setcolumnValue((prev: unknown) => (prev = _e.target.value));
-    setAdress(`${_index}X${childIndex}`);
+    console.log('cell chnage', `${childIndex}X${_index}`);
+    setcolumnValue((prev) => (prev = _e.target.value));
+    const item = localStorage.getItem('datas');
+    const data = item ? JSON.parse(item) : null;
+
+    console.log('data', data);
+    const modifiedData = data.map((_data, index) => {
+      return _data.map((__data, __index: number) => {
+        if (index === _index && __index === childIndex) {
+          return (__data = columnValue);
+        } else {
+          return __data;
+        }
+      });
+    });
+
+    localStorage['datas'] = JSON.stringify(modifiedData);
+
+    setPrimaryArray(modifiedData);
+
+    // setcolumnValue((prev: unknown) => (prev = _e.target.value));
+    // setAdress(`${_index}X${childIndex}`);
   };
 
   const columnStr = Array(column)
@@ -97,6 +116,22 @@ export const ClassComponent = () => {
     });
 
     console.log(generalArray, 'generalArray');
+  } else {
+    const item = localStorage.getItem('datas');
+    const data = item ? JSON.parse(item) : null;
+    tablecells = data.map((_, index) => {
+      return (
+        <tr key={index} id={`row-${index}`}>
+          {_.map((__, childIndex) => {
+            return (
+              <th key={childIndex} id={`column-${childIndex}`}>
+                <input value={__} type='text' onChange={(e) => tableCellChange(e, index, childIndex)} />
+              </th>
+            );
+          })}
+        </tr>
+      );
+    });
   }
 
   return (
