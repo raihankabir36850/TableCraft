@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from 'react';
+import { ChangeEvent, Key, useState } from 'react';
 import { Title } from '../Title/Title';
-import './Basic.css';
 
-export const Basic = () => {
+export const ClassComponent = () => {
   const row = 9;
   const column = 4;
   const [showUptick, setshowUptick] = useState(false);
   const [showDowntick, setshowDowntick] = useState(false);
   const [columnNum, setcolumnNum] = useState(100);
+  const [columnValue, setcolumnValue] = useState('');
+  const [address, setAdress] = useState('');
 
   const columnHandler = (columnNumber: number) => {
     setcolumnNum((prev: number) => {
@@ -33,6 +34,11 @@ export const Basic = () => {
 
       return (prev = columnNumber);
     });
+  };
+  const tableCellChange = (_e: ChangeEvent<HTMLInputElement>, _index: number, childIndex: number) => {
+    console.log('cell chnage', _index, childIndex);
+    setcolumnValue((prev: unknown) => (prev = _e.target.value));
+    setAdress(`${_index}X${childIndex}`);
   };
 
   const columnStr = Array(column)
@@ -72,16 +78,23 @@ export const Basic = () => {
             .fill('')
             .map((__, childIndex) => (
               <th key={childIndex} id={`column-${childIndex}`}>
-                {`column ${childIndex}: row: ${index}`}
+                <input
+                  datatype={`${index}X${childIndex}`}
+                  type='text'
+                  value={address !== `${index}X${childIndex}` ? `column ${childIndex}: row: ${index}` : `${columnValue}`}
+                  onChange={(e) => tableCellChange(e, index, childIndex)}
+                />
               </th>
             ))}
         </tr>
       );
     });
 
+  console.log(tablecells, 'tablecells');
+
   return (
     <div>
-      <Title title='Basics' />
+      <Title title='Class Components' />
       <table>
         <thead>
           <tr>{columnStr}</tr>
