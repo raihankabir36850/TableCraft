@@ -1,17 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { ChangeEvent, Key, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { Title } from '../Title/Title';
 
 export const ClassComponent = () => {
   const row = 9;
   const column = 4;
-  let generalArray, tablecells;
+  const generalArray = Array(row)
+    .fill('')
+    .map((x, index) => {
+      return Array(column)
+        .fill('')
+        .map((_x, ChildIndex) => `column: ${ChildIndex} row: ${index}`);
+    });
   const [showUptick, setshowUptick] = useState(false);
   const [showDowntick, setshowDowntick] = useState(false);
   const [columnNum, setcolumnNum] = useState(100);
-  const [columnValue, setcolumnValue] = useState('');
-  const [address, setAdress] = useState('');
-  const [primaryArray, setPrimaryArray] = useState([]);
+  const [primaryArray, setprimaryArray] = useState(generalArray);
 
   const columnHandler = (columnNumber: number) => {
     setcolumnNum((prev: number) => {
@@ -39,27 +43,9 @@ export const ClassComponent = () => {
   };
   const tableCellChange = (_e: ChangeEvent<HTMLInputElement>, _index: number, childIndex: number) => {
     console.log('cell chnage', `${childIndex}X${_index}`);
-    setcolumnValue((prev) => (prev = _e.target.value));
-    const item = localStorage.getItem('datas');
-    const data = item ? JSON.parse(item) : null;
-
-    console.log('data', data);
-    const modifiedData = data.map((_data, index) => {
-      return _data.map((__data, __index: number) => {
-        if (index === _index && __index === childIndex) {
-          return (__data = columnValue);
-        } else {
-          return __data;
-        }
-      });
-    });
-
-    localStorage['datas'] = JSON.stringify(modifiedData);
-
-    setPrimaryArray(modifiedData);
-
-    // setcolumnValue((prev: unknown) => (prev = _e.target.value));
-    // setAdress(`${_index}X${childIndex}`);
+    const modifiedArray = [...primaryArray];
+    modifiedArray[_index][childIndex] = _e.target.value;
+    setprimaryArray(modifiedArray);
   };
 
   const columnStr = Array(column)
@@ -90,49 +76,19 @@ export const ClassComponent = () => {
       </th>
     ));
 
-  if (!primaryArray.length) {
-    generalArray = Array(row)
-      .fill('')
-      .map((x, index) => {
-        return Array(column)
-          .fill('')
-          .map((_x, ChildIndex) => `column ${ChildIndex}: row: ${index}`);
-      });
-
-    localStorage['datas'] = JSON.stringify(generalArray);
-
-    tablecells = generalArray.map((_, index) => {
-      return (
-        <tr key={index} id={`row-${index}`}>
-          {_.map((__, childIndex) => {
-            return (
-              <th key={childIndex} id={`column-${childIndex}`}>
-                <input value={__} type='text' onChange={(e) => tableCellChange(e, index, childIndex)} />
-              </th>
-            );
-          })}
-        </tr>
-      );
-    });
-
-    console.log(generalArray, 'generalArray');
-  } else {
-    const item = localStorage.getItem('datas');
-    const data = item ? JSON.parse(item) : null;
-    tablecells = data.map((_, index) => {
-      return (
-        <tr key={index} id={`row-${index}`}>
-          {_.map((__, childIndex) => {
-            return (
-              <th key={childIndex} id={`column-${childIndex}`}>
-                <input value={__} type='text' onChange={(e) => tableCellChange(e, index, childIndex)} />
-              </th>
-            );
-          })}
-        </tr>
-      );
-    });
-  }
+  const tablecells = primaryArray.map((_, index) => {
+    return (
+      <tr key={index} id={`row-${index}`}>
+        {_.map((__, childIndex) => {
+          return (
+            <th key={childIndex} id={`column-${childIndex}`}>
+              <input value={__} type='text' onChange={(e) => tableCellChange(e, index, childIndex)} />
+            </th>
+          );
+        })}
+      </tr>
+    );
+  });
 
   return (
     <div>
