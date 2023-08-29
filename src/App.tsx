@@ -1,5 +1,6 @@
 import { Basic } from './Components/Basic/Basic';
 import { ClassComponent } from './Components/ClassComponent/ClassComponent';
+import { ColumnReOrdering } from './Components/Columns/ColumnReOrdering';
 
 function App() {
   return (
@@ -7,6 +8,7 @@ function App() {
       <h1>Data Table</h1>
       <Basic />
       <ClassComponent />
+      <ColumnReOrdering />
     </>
   );
 }
