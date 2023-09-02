@@ -7,11 +7,8 @@ export const ColumnReOrdering = () => {
   const [columnArray, setColumnArray] = useState(Array(column).fill(''));
 
   const generalFunction = () => {
-    console.log('finished', primaryArray);
-
     columnArray[parseInt(primaryArray[0].id)] = primaryArray[primaryArray.length - 1].value;
     columnArray[parseInt(primaryArray[primaryArray.length - 1].id)] = primaryArray[0].value;
-
     setColumnArray(columnArray);
   };
 
@@ -22,7 +19,7 @@ export const ColumnReOrdering = () => {
     });
   };
 
-  const dragEndHandler = (_e: ChangeEvent<HTMLInputElement>) => {
+  const dragEndHandler = () => {
     // eslint-disable-next-line no-constant-condition
     if (primaryArray.length >= 2 && primaryArray[primaryArray.length - 1] !== primaryArray[0]) {
       generalFunction();
@@ -34,7 +31,7 @@ export const ColumnReOrdering = () => {
 
   const columnStr = columnArray.map((x, index) => {
     return (
-      <th key={index} id={index} data-table={x !== '' ? x : index} draggable='true' onDragEnter={(e) => dragEnterHandler(e)} onDragEnd={(e) => dragEndHandler(e)}>
+      <th key={index} id={index} data-table={x !== '' ? x : index} draggable='true' onDragEnter={(e) => dragEnterHandler(e)} onDragEnd={() => dragEndHandler()}>
         column : {x !== '' ? x : index}
       </th>
     );
@@ -45,13 +42,11 @@ export const ColumnReOrdering = () => {
     .map((_, index) => {
       return (
         <tr key={index} id={`row-${index}`}>
-          {Array(column)
-            .fill('')
-            .map((__, childIndex) => (
-              <th key={childIndex} id={`column-${childIndex}`}>
-                {`column ${childIndex}: row: ${index}`}
-              </th>
-            ))}
+          {columnArray.map((__, childIndex) => (
+            <th key={childIndex} id={`column-${childIndex}`}>
+              {`column ${__ !== '' ? __ : childIndex}: row: ${index}`}
+            </th>
+          ))}
         </tr>
       );
     });
