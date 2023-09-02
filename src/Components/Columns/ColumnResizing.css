@@ -1,0 +1,10 @@
+table{
+    overflow-x: auto;
+}
+
+thead tr th{
+    overflow: auto;
+    resize: horizontal;
+    min-width: 70px;
+    max-width: 300px;
+}
