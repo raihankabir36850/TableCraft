@@ -5,36 +5,17 @@ export const ColumnReOrdering = () => {
   const column = 4;
   const [primaryArray, setPrimaryArray] = useState([]);
   const [columnArray, setColumnArray] = useState(Array(column).fill(''));
-  const [fromArray, setFromArray] = useState();
-  const [toArray, setToArray] = useState();
 
   const generalFunction = () => {
     console.log('finished', primaryArray);
 
-    const firstEl = parseInt(primaryArray[0].value);
-    const firstElValue = parseInt(primaryArray[0].id);
-    const secondEl = parseInt(primaryArray[primaryArray.length - 1].value);
-    const secondElValue = parseInt(primaryArray[primaryArray.length - 1].id);
+    columnArray[parseInt(primaryArray[0].id)] = primaryArray[primaryArray.length - 1].value;
+    columnArray[parseInt(primaryArray[primaryArray.length - 1].id)] = primaryArray[0].value;
 
-    if (firstEl < secondEl || (firstEl == firstElValue && secondEl == secondElValue)) {
-      console.log('if');
-      columnArray[parseInt(primaryArray[0].id)] = primaryArray[primaryArray.length - 1].value;
-      columnArray[parseInt(primaryArray[primaryArray.length - 1].id)] = primaryArray[0].value;
-    } else {
-      console.log('else');
-      columnArray[parseInt(primaryArray[0].id)] = primaryArray[0].value;
-      columnArray[parseInt(primaryArray[primaryArray.length - 1].id)] = primaryArray[primaryArray.length - 1].value;
-    }
-
-    console.log('first', columnArray);
     setColumnArray(columnArray);
   };
 
   const dragEnterHandler = (_e: ChangeEvent<HTMLInputElement>) => {
-    // if (_e.target.dataset.table !== '') {
-    //   primaryArray.push(_e.target.dataset.table);
-    // }
-
     primaryArray.push({
       id: _e.target.id,
       value: _e.target.dataset.table,
