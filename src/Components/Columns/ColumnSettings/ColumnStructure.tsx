@@ -1,7 +1,5 @@
 import { useState } from 'react';
-export const ColumnStructure = ({ ROW, columnsArray, tableCells }) => {
-  console.log(columnsArray, 'agian');
-
+export const ColumnStructure = ({ ROW, columnsArray, tableCells, tableChangedHandler }) => {
   const columnStr = columnsArray.map((x, index) =>
     x.checked === true ? (
       <th key={index} id={`column-${index}`}>
@@ -10,14 +8,15 @@ export const ColumnStructure = ({ ROW, columnsArray, tableCells }) => {
     ) : null
   );
 
-  console.log(tableCells, 'columnStructure');
+  console.log(tableCells, 'tableCells');
+
   const tablecellStructure = tableCells.map((_, index) => {
     return (
       <tr key={index} id={`row-${index}`}>
-        {_.map((__: boolean, childIndex: number) => {
-          __ == true ? (
+        {_.map((__, childIndex) => {
+          return __.checked === true ? (
             <th key={childIndex} id={`column-${childIndex}`}>
-              <input value={`column ${childIndex}: row: ${index}`} type='text' />
+              <input value={__.value} type='text' data-parent={index} onChange={(e) => tableChangedHandler(e, e.target.dataset.parent, childIndex)} />
             </th>
           ) : null;
         })}
