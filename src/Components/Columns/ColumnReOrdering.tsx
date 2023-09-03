@@ -6,7 +6,7 @@ export const ColumnReOrdering = () => {
   const [primaryArray, setPrimaryArray] = useState([]);
   const [columnArray, setColumnArray] = useState(Array(column).fill(''));
 
-  const generalFunction = () => {
+  const tableMutateFunction = () => {
     columnArray[parseInt(primaryArray[0].id)] = primaryArray[primaryArray.length - 1].value;
     columnArray[parseInt(primaryArray[primaryArray.length - 1].id)] = primaryArray[0].value;
     setColumnArray(columnArray);
@@ -22,7 +22,7 @@ export const ColumnReOrdering = () => {
   const dragEndHandler = () => {
     // eslint-disable-next-line no-constant-condition
     if (primaryArray.length >= 2 && primaryArray[primaryArray.length - 1] !== primaryArray[0]) {
-      generalFunction();
+      tableMutateFunction();
       setPrimaryArray([]);
     }
   };

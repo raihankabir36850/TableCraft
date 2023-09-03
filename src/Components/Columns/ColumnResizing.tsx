@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useState } from 'react';
+import { useState, ChangeEvent } from 'react';
 import './ColumnResizing.css';
 import { Title } from '../Title/Title';
 
@@ -11,7 +11,7 @@ export const ColumnResizing = () => {
     .fill('')
     .map((x, index) => (
       <th key={index} id={`column-${index}`}>
-        column : {index}
+        <span>column : {index}</span>
       </th>
     ));
 
@@ -24,7 +24,9 @@ export const ColumnResizing = () => {
             .fill('')
             .map((__, childIndex) => (
               <th key={childIndex} id={`column-${childIndex}`}>
-                {`column ${childIndex}: row: ${index}`}
+                <span>
+                  <span>{`column ${childIndex}: row: ${index}`}</span>
+                </span>
               </th>
             ))}
         </tr>
@@ -34,12 +36,14 @@ export const ColumnResizing = () => {
   return (
     <div>
       <Title title='Columns --> Column Resizing' />
-      <table>
-        <thead>
-          <tr>{columnStr}</tr>
-        </thead>
-        <tbody>{tablecells}</tbody>
-      </table>
+      <div className='table_container'>
+        <table>
+          <thead>
+            <tr>{columnStr}</tr>
+          </thead>
+          <tbody>{tablecells}</tbody>
+        </table>
+      </div>
     </div>
   );
 };

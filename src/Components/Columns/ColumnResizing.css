@@ -1,10 +1,28 @@
-table{
+.table_container table{
     overflow-x: auto;
 }
 
-thead tr th{
+.table_container thead tr th{
     overflow: auto;
     resize: horizontal;
-    min-width: 70px;
-    max-width: 300px;
+}
+.table_container thead tr th span{
+    display: block;
+    width: 100px;
+}
+
+.table_container{
+    display: flex;
+    overflow:scroll;
+}
+
+.table_container table{
+    flex: 0 0 auto;
+}
+.table_container table tbody span{
+    display: block;
+    width: 134px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
 }

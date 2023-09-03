@@ -2,6 +2,7 @@ import { Basic } from './Components/Basic/Basic';
 import { ClassComponent } from './Components/ClassComponent/ClassComponent';
 import { ColumnReOrdering } from './Components/Columns/ColumnReOrdering';
 import { ColumnResizing } from './Components/Columns/ColumnResizing';
+import { ColumnSettings } from './Components/Columns/ColumnSettings/ColumnSettings';
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
       <ClassComponent />
       <ColumnReOrdering />
       <ColumnResizing />
+      <ColumnSettings />
     </>
   );
 }
