@@ -26,32 +26,30 @@ export const ColumnSettings = () => {
 
   const CheckBoxHandler = (_e: ChangeEvent<HTMLInputElement>, id) => {
     const modifiedArray = [...columns];
-    //columns[id] = { ...columns[id], checked: _e.target.checked };
     modifiedArray[id] = { ...modifiedArray[id], checked: _e.target.checked };
-    console.log('LET', modifiedArray);
-    const secondaryArray = Array(ROW)
-      .fill('')
-      .map((x, index) => {
-        return modifiedArray.map((_x, ChildIndex) => {
-          return columns.map((_x, ChildIndex) => {
-            _x.value = `column ${ChildIndex}: row: ${index}`;
-            return { ..._x };
-          });
-        });
+    const bigArray = [...primaryArray];
+
+    const anotherArray = bigArray.map((item, index) => {
+      return item.map((childItem, childIndex) => {
+        const findItem = modifiedArray.find((findItem, findIndex) => findItem.id === childItem.id);
+        return findItem ? { ...childItem, checked: findItem.checked, value: childItem.value } : childItem;
       });
+    });
+
     setColumns(modifiedArray);
-    setprimaryArray(secondaryArray);
+    setprimaryArray(anotherArray);
   };
 
   const tableChangedHandler = (_e, index: number | string, childIndex: number) => {
     const modifiedArray = [...primaryArray];
-    console.log(modifiedArray[index][childIndex], 'fresh', _e.target);
-    modifiedArray[index][childIndex].value = _e.target.value;
-    // console.log(modifiedArray, 'modified', modifiedArray[index][childIndex]);
-    setprimaryArray(modifiedArray);
+    const generalArray = modifiedArray.map((x, ind) => {
+      return x.map((_x, ChildInd) => {
+        _x.value = index == ind && childIndex == ChildInd ? _e.target.value : _x.value;
+        return { ..._x };
+      });
+    });
+    setprimaryArray(generalArray);
   };
-
-  console.log(primaryArray, 'primaryarray');
 
   return (
     <div>

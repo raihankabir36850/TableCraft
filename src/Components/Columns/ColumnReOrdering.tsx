@@ -27,8 +27,6 @@ export const ColumnReOrdering = () => {
     }
   };
 
-  console.log('columnArray', columnArray);
-
   const columnStr = columnArray.map((x, index) => {
     return (
       <th key={index} id={index} data-table={x !== '' ? x : index} draggable='true' onDragEnter={(e) => dragEnterHandler(e)} onDragEnd={() => dragEndHandler()}>

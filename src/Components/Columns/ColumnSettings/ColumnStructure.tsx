@@ -1,4 +1,3 @@
-import { useState } from 'react';
 export const ColumnStructure = ({ ROW, columnsArray, tableCells, tableChangedHandler }) => {
   const columnStr = columnsArray.map((x, index) =>
     x.checked === true ? (
@@ -7,8 +6,6 @@ export const ColumnStructure = ({ ROW, columnsArray, tableCells, tableChangedHan
       </th>
     ) : null
   );
-
-  console.log(tableCells, 'tableCells');
 
   const tablecellStructure = tableCells.map((_, index) => {
     return (
