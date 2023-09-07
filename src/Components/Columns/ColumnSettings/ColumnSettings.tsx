@@ -22,7 +22,12 @@ export const ColumnSettings = () => {
       });
     });
 
-  const [primaryArray, setprimaryArray] = useState(generalArray);
+  console.log('generalArray', generalArray);
+
+  const [primaryArray, setPrimaryArray] = useState(generalArray);
+  const [showUptick, setshowUptick] = useState(false);
+  const [showDowntick, setshowDowntick] = useState(false);
+  const [columnNum, setcolumnNum] = useState(100);
 
   const CheckBoxHandler = (_e: ChangeEvent<HTMLInputElement>, id) => {
     const modifiedArray = [...columns];
@@ -37,7 +42,7 @@ export const ColumnSettings = () => {
     });
 
     setColumns(modifiedArray);
-    setprimaryArray(anotherArray);
+    setPrimaryArray(anotherArray);
   };
 
   const tableChangedHandler = (_e, index: number | string, childIndex: number) => {
@@ -48,7 +53,32 @@ export const ColumnSettings = () => {
         return { ..._x };
       });
     });
-    setprimaryArray(generalArray);
+    setPrimaryArray(generalArray);
+  };
+
+  const columnHandler = (columnNumber: number) => {
+    setcolumnNum((prev: number) => {
+      if (prev === columnNumber) {
+        if (!showUptick && !showDowntick) {
+          setshowUptick((prev: boolean) => !prev);
+        }
+
+        if (showUptick && !showDowntick) {
+          setshowUptick((prev: boolean) => !prev);
+          setshowDowntick((prev: boolean) => !prev);
+        }
+
+        if (!showUptick && showDowntick) {
+          setshowUptick((prev: boolean) => !prev);
+          setshowDowntick((prev: boolean) => !prev);
+        }
+      } else {
+        setshowUptick((prev: boolean) => (prev = true));
+        setshowDowntick((prev: boolean) => (prev = false));
+      }
+
+      return (prev = columnNumber);
+    });
   };
 
   return (
@@ -56,7 +86,16 @@ export const ColumnSettings = () => {
       <Title title='Column Settings' />
       <ColumnCheckBox COLUMN={columns} CheckBoxHandler={CheckBoxHandler} />
       <div className='table_container_settings'>
-        <ColumnStructure ROW={ROW} columnsArray={columns} tableCells={primaryArray} tableChangedHandler={tableChangedHandler} />
+        <ColumnStructure
+          ROW={ROW}
+          columnsArray={columns}
+          tableCells={primaryArray}
+          tableChangedHandler={tableChangedHandler}
+          asc={showUptick}
+          dsc={showDowntick}
+          columnHandler={columnHandler}
+          columnNum={columnNum}
+        />
       </div>
     </div>
   );
