@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { ChangeEvent, useState } from 'react';
 import { Title } from '../Title/Title';
+import './ClassComponent.css';
 
 export const ClassComponent = () => {
-  const row = 9;
-  const column = 4;
+  const row = 30;
+  const column = 100;
   const generalArray = Array(row)
     .fill('')
     .map((x, index) => {
@@ -93,16 +94,18 @@ export const ClassComponent = () => {
   return (
     <div>
       <Title title='Class Components' />
-      <table>
-        <thead>
-          <tr>{columnStr}</tr>
-        </thead>
-        <tbody>
-          {!showUptick && !showDowntick && tablecells}
-          {showUptick && !showDowntick && tablecells}
-          {!showUptick && showDowntick && tablecells && tablecells.reverse()}
-        </tbody>
-      </table>
+      <div className='table_class_component'>
+        <table>
+          <thead>
+            <tr>{columnStr}</tr>
+          </thead>
+          <tbody>
+            {!showUptick && !showDowntick && tablecells}
+            {showUptick && !showDowntick && tablecells}
+            {!showUptick && showDowntick && tablecells && tablecells.reverse()}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
