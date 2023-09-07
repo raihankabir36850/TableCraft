@@ -3,3 +3,10 @@
     overflow: scroll;
     height: 400px;
 }
+
+.table_class_component thead tr{
+    position: sticky;
+    top: 0;
+    background: red;
+    z-index: 9;
+}
