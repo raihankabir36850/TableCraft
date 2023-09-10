@@ -3,6 +3,7 @@ import { ClassComponent } from './Components/ClassComponent/ClassComponent';
 import { ColumnReOrdering } from './Components/Columns/ColumnReOrdering';
 import { ColumnResizing } from './Components/Columns/ColumnResizing';
 import { ColumnSettings } from './Components/Columns/ColumnSettings/ColumnSettings';
+import { AlertCell } from './Components/Customization/AlertCell/AlertCell';
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <ColumnReOrdering />
       <ColumnResizing />
       <ColumnSettings />
+      <AlertCell />
     </>
   );
 }

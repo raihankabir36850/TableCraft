@@ -22,8 +22,6 @@ export const ColumnSettings = () => {
       });
     });
 
-  console.log('generalArray', generalArray);
-
   const [primaryArray, setPrimaryArray] = useState(generalArray);
   const [showUptick, setshowUptick] = useState(false);
   const [showDowntick, setshowDowntick] = useState(false);
