@@ -1,0 +1,11 @@
+.active {
+    background-color:blue;
+}
+
+.fail{
+    background-color: red;
+}
+
+.passed{
+    background-color: green;
+}
