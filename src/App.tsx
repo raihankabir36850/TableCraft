@@ -1,8 +1,10 @@
-import { Navbar } from './Components/Navbar/Navbar';
+import { Logo } from './Components/Logo/Logo';
+import { Menu } from './Components/Menu/Menu';
 function App() {
   return (
-    <div>
-      <Navbar />
+    <div className='navbar flex justify-between items-center max-w-7xl mr-auto ml-auto'>
+      <Logo />
+      <Menu />
     </div>
   );
 }
