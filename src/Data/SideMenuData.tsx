@@ -1,43 +1,41 @@
 export const sideMenuData = [
-  { name: "basic", id: 1, url: "overview" },
-  { name: "class Component", id: 2, url: "/class-component" },
+  { name: 'basic', id: 1, url: '/overview' },
+  { name: 'class Component', id: 2, url: '/overview/class-component' },
   {
-    name: "columns",
+    name: 'columns',
     children: [
       {
-        name: "column reordering",
+        name: 'column reordering',
         id: 1,
-        url: "/column-reordering",
+        url: '/overview/column-reordering',
       },
       {
-        name: "column resizing",
+        name: 'column resizing',
         id: 2,
-        url: "/column-resizing",
+        url: '/overview/column-resizing',
       },
       {
-        name: "column settings",
+        name: 'column settings',
         id: 3,
-        url: "/column-settings",
+        url: '/overview/column-settings',
       },
     ],
     id: 3,
-    url: "overview",
   },
   {
-    name: "customization",
+    name: 'customization',
     children: [
       {
-        name: "alert cell",
+        name: 'alert cell',
         id: 1,
-        url: "/alert-cell",
+        url: '/overview/alert-cell',
       },
       {
-        name: "custom attributes",
+        name: 'custom attributes',
         id: 2,
-        url: "/custom-attributes",
+        url: '/overview/custom-attributes',
       },
     ],
-    id: 3,
-    url: "overview",
+    id: 4,
   },
 ];
