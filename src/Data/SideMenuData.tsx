@@ -1,5 +1,5 @@
 export const sideMenuData = [
-  { name: 'basic', id: 1, url: '/overview' },
+  { name: 'basic', id: 1, url: '/overview/basic' },
   { name: 'class Component', id: 2, url: '/overview/class-component' },
   {
     name: 'columns',

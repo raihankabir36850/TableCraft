@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { Home } from './Pages/Home';
 import { OverView } from './Pages/Basic';
+import { ErrorPage } from './Pages/Error';
 
 import { Basic } from './Components/Basic/Basic';
 import { ClassComponent } from './Components/ClassComponent/ClassComponent';
@@ -14,12 +15,17 @@ export const router = createBrowserRouter([
   {
     path: '/',
     element: <Home />,
+    errorElement: <ErrorPage />,
   },
   {
     path: '/overview',
     element: <OverView />,
     children: [
-      { index: true, element: <Basic /> },
+      { index: true, element: <div>show table contents</div> },
+      {
+        path: 'basic',
+        element: <Basic />,
+      },
       {
         path: 'class-component',
         element: <ClassComponent />,
